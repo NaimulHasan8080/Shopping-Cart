@@ -25,7 +25,7 @@
 
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
-                           <button class="btn btn-default"><i id="mainus" class="fas fa-minus"></i></button>
+                           <button id="mobileDecreaseBtn" class="btn btn-default"><i id="mainus" class="fas fa-minus"></i></button>
                            <input id="mobileCount" type="text" class="form-control text-center" value="1">
                            <button id="mobileIncreaseBtn" class="btn btn-default"><i class="fas fa-plus"></i></button>
                         </div>
@@ -79,16 +79,48 @@
    </section>
 
    <script>
-   //   mobileIncrease button
-   document.getElementById("mobileIncreaseBtn").addEventListener("click", function () {
+      document.getElementById("mobileIncreaseBtn").addEventListener("click", function () {
+      changeProductPrice(true)
+      
+   })
+   // mobile decrease button
+   document.getElementById("mobileDecreaseBtn").addEventListener("click", function () {
+    changeProductPrice(false)
+   })
+   function changeProductPrice(isIncrease) {
       const mobileInput = document.getElementById("mobileCount");
       const mobileQuantity = parseInt(mobileInput.value);
-      const newMobileCount = mobileQuantity + 1;
+      // const newMobileCount = mobileQuantity + 1;
+      let newMobileCount = mobileQuantity;
+      if (isIncrease == true) {
+         newMobileCount = mobileQuantity + 1;
+      }
+      if (isIncrease == false && mobileQuantity > 0) {
+         newMobileCount = mobileQuantity - 1
+      }
       mobileInput.value = newMobileCount;
       const newMobilePrice = newMobileCount * 1219
-      document.getElementById("mobilePrice").innerText = "$" + newMobilePrice
-
-   })
+      document.getElementById("mobilePrice").innerText = "$" + newMobilePrice;
+   }
+   //   mobile Increase button
+   // document.getElementById("mobileIncreaseBtn").addEventListener("click", function () {
+   //    const mobileInput = document.getElementById("mobileCount");
+   //    const mobileQuantity = parseInt(mobileInput.value);
+   //    const newMobileCount = mobileQuantity + 1;
+   //    mobileInput.value = newMobileCount;
+   //    const newMobilePrice = newMobileCount * 1219
+   //    document.getElementById("mobilePrice").innerText = "$" + newMobilePrice;
+      
+   // })
+   // // mobile decrease button
+   // document.getElementById("mobileDecreaseBtn").addEventListener("click", function () {
+   //   const mobileInput = document.getElementById("mobileCount");
+   //   const mobileQuantity = parseInt(mobileInput.value);
+   //   const newMobileCount = mobileQuantity - 1;
+   //   mobileInput.value = newMobileCount;
+   //   const newMobilePrice = newMobileCount * 1219;
+   //   document.getElementById("mobilePrice").innerText = "$" + newMobilePrice;
+   // })
    </script>
 </body>
 
