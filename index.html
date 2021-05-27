@@ -64,9 +64,9 @@
                      </div>
 
                      <div class="col-md-4 status">
-                        <h5>$1,278</h5>
-                        <h5>$0</h5>
-                        <h5>$1,278</h5>
+                        <h5 id="subTotal">$1,278</h5>
+                        <h5 id="tex">$0</h5>
+                        <h5 id="total">$1,278</h5>
                      </div>
                   </div>
                </div>
@@ -79,72 +79,81 @@
    </section>
 
    <script>
+      // mobile increase and decrease button
       document.getElementById("mobileIncreaseBtn").addEventListener("click", function () {
-      changeProductPrice(true)
+      changeProducts('mobile', true)
       
    })
-   // mobile decrease button
+   
    document.getElementById("mobileDecreaseBtn").addEventListener("click", function () {
-    changeProductPrice(false)
+    changeProducts('mobile' ,false)
    })
    // case increase and decrease button
    document.getElementById("caseIncreaseBtn").addEventListener("click", function () {
-      changeCaseProducts(true)
+      changeProducts('case', true)
      
    })
-// decrease button
  document.getElementById("caseDecreaseBtn").addEventListener("click", function () {
-     changeCaseProducts(false)
+     changeProducts('case', false)
    })
-// function for case
-function changeCaseProducts(isIncrease) {
-   const caseInput = document.getElementById("caseCount");
-      const caseCount = parseInt(caseInput.value);
+
+   
+   function changeProducts(product, isIncrease) {
+   const productInput = document.getElementById(product + "Count");
+      const productCount = parseInt(productInput.value);
       // const caseNewCount = caseCount - 1;
-      let caseNewCount = caseCount;  
+      let productNewCount = productCount;  
       if (isIncrease == true) {
-         caseNewCount = caseCount + 1;
+         productNewCount = productCount + 1;
       } 
-      if (isIncrease == false && caseCount > 0 ){
-         caseNewCount = caseCount - 1;
+      if (isIncrease == false && productCount > 0 ){
+         productNewCount = productCount - 1;
       }
-      caseInput.value = caseNewCount;
-      const newCasePrice = caseNewCount * 59;
-      document.getElementById("casePrice").innerText = "$" + newCasePrice
-}
+      productInput.value = productNewCount;
+      // const newProductPrice = productNewCount * 59;
+      let newProductPrice = productNewCount
+      if (product == "case") {
+         newProductPrice = productNewCount * 59;
+      };
+      if (product == "mobile") {
+         newProductPrice = productNewCount * 1219;
+      }
+      document.getElementById(product + "Price").innerText = "$" + newProductPrice;
+      calculateTotal()
+// function changeCaseProducts(isIncrease) {
+//    const caseInput = document.getElementById("caseCount");
+//       const caseCount = parseInt(caseInput.value);
+//       // const caseNewCount = caseCount - 1;
+//       let caseNewCount = caseCount;  
+//       if (isIncrease == true) {
+//          caseNewCount = caseCount + 1;
+//       } 
+//       if (isIncrease == false && caseCount > 0 ){
+//          caseNewCount = caseCount - 1;
+//       }
+//       caseInput.value = caseNewCount;
+//       const newCasePrice = caseNewCount * 59;
+//       document.getElementById("casePrice").innerText = "$" + newCasePrice
+// }
 
-
-// function for mobile
-   function changeProductPrice(isIncrease) {
-      const mobileInput = document.getElementById("mobileCount");
-      const mobileQuantity = parseInt(mobileInput.value);
-      // const newMobileCount = mobileQuantity + 1;
-      let newMobileCount = mobileQuantity;
-      if (isIncrease == true) {
-         newMobileCount = mobileQuantity + 1;
-      }
-      if (isIncrease == false && mobileQuantity > 0) {
-         newMobileCount = mobileQuantity - 1
-      }
-      mobileInput.value = newMobileCount;
-      const newMobilePrice = newMobileCount * 1219;
-      document.getElementById("mobilePrice").innerText = "$" + newMobilePrice;
-   }
+// // function for mobile
+//    function changeMobilePrice(isIncrease) {
+//       const mobileInput = document.getElementById("mobileCount");
+//       const mobileQuantity = parseInt(mobileInput.value);
+//       // const newMobileCount = mobileQuantity + 1;
+//       let newMobileCount = mobileQuantity;
+//       if (isIncrease == true) {
+//          newMobileCount = mobileQuantity + 1;
+//       }
+//       if (isIncrease == false && mobileQuantity > 0) {
+//          newMobileCount = mobileQuantity - 1
+//       }
+//       mobileInput.value = newMobileCount;
+//       const newMobilePrice = newMobileCount * 1219;
+//       document.getElementById("mobilePrice").innerText = "$" + newMobilePrice;
+//    }
    // case increase and decrease button
   
-
-
-
-
-
-
-
-
-
-
-
-
-
    //   mobile Increase button
    // document.getElementById("mobileIncreaseBtn").addEventListener("click", function () {
    //    const mobileInput = document.getElementById("mobileCount");
@@ -163,7 +172,23 @@ function changeCaseProducts(isIncrease) {
    //   mobileInput.value = newMobileCount;
    //   const newMobilePrice = newMobileCount * 1219;
    //   document.getElementById("mobilePrice").innerText = "$" + newMobilePrice;
-   // })
+   }
+   function calculateTotal () {
+      const mobileInput = document.getElementById("mobileCount");
+      const mobileCount = parseInt(mobileInput.value)
+
+      const caseInput = document.getElementById("caseCount");
+      const caseCount = parseInt(caseInput.value);
+
+      const totalSubPrice = mobileCount * 1219 + caseCount * 59;
+      document.getElementById("subTotal").innerText = "$" + totalSubPrice;
+
+      const tex = Math.round(totalSubPrice * 0.1);
+      document.getElementById("tex").innerText ="$" + tex;
+
+      const totalPrice = totalSubPrice + tex;
+      document.getElementById("total").innerText = "$" + totalPrice;
+   }
    </script>
 </body>
 
